@@ -1,0 +1,22 @@
+# --- Python Environment ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.env
+
+# --- Simulation Outputs ---
+# Ignore outputs (figures, tables)
+figures/*.png
+figures/*.pdf
+output/
+*.xlsx
+*.csv
+
+# --- OS / IDE Specific ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

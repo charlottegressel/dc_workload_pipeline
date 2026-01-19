@@ -1,0 +1,19 @@
+# Core
+numpy~=2.4.0
+pandas~=2.3.3
+scipy~=1.16.3
+
+# Optimization solver (app_joballocalgo.py)
+cvxpy~=1.7.5
+clarabel~=0.11.1
+osqp~=1.0.5
+
+# Regression (biohpc_regression.py)
+scikit-learn~=1.8.0
+
+# Visualization
+matplotlib~=3.10.8
+seaborn~=0.13.2
+
+# Excel support
+openpyxl~=3.1.5
