@@ -1,5 +1,5 @@
-# DC Workload Simulation Pipeline  
-**Modeling Flexible AI Data Center IT Workloads for Grid Impact Analysis**
+# AI Data Center Workload Simulation Pipeline  
+**Modeling AI Data Center Workloads for Power System Flexibility and Grid Stress Mitigation**
 
 ## Overview
 
@@ -8,11 +8,11 @@ This repository contains the simulation code accompanying the paper:
 > **Modeling AI Data Center Workloads for Power System Flexibility and Grid Stress Mitigation**  
 > *Charlotte Gressel, Richard Mahuze, K. Max Zhang — Cornell University*
 
-The objective of this work is to model **AI data center (DC)** load profiles using empirically calibrated data and a comprehensive set of system parameters, at high temporal resolution and over daily operational timescales. The framework explicitly distinguishes between inference and training AI workloads, capturing their fundamentally different temporal characteristics and flexibility. These IT workloads are coupled with an adaptive liquid-chiller cooling model, enabling realistic representation of cooling demand and its interaction with workload dynamics.
+The objective of this work is to model **AI data center (DC)** load profiles using empirically calibrated data and a comprehensive set of system parameters, at high temporal resolution and over daily operational timescales. The framework explicitly distinguishes between **inference and training** AI workloads, capturing their fundamentally different temporal characteristics and flexibility. These IT workloads are coupled with an adaptive **liquid-chiller cooling** model, enabling realistic representation of cooling demand and its interaction with workload dynamics.
 
-The framework is intended to support **grid operators, policymakers, and researchers** in understanding and assessing the impact of rapidly growing AI data center electricity demand on power systems, including peak demand, variability, and flexibility potential.
+The framework is intended to support grid operators, policymakers, and researchers in understanding and assessing in future simulations the impact of rapidly growing AI data center electricity demand on power systems, including peak demand, variability, and flexibility potential.
 
-<img src="figures/visualization2.png" alt="Simulated Load Profile Breakdown (7 days sample)" width="700">
+<img width="700" height="692" alt="Simulated Load Profile Breakdown (7 days sample)" src="https://github.com/user-attachments/assets/f0c0a548-5912-410d-85a9-77d3ccb0237b" />
 
 ---
 
@@ -135,22 +135,16 @@ dc_workload_pipeline/
 └── README.md
 ```
 
+To ensure that internal package dependencies and relative paths are resolved correctly, always execute the modules from the project root using the Python module flag (-m).
 
----
-
-## Installation
-
-### Requirements
-
-- Python < 3.11
-- NumPy
-- Pandas
-- Matplotlib
-- Seaborn
-- SciPy
-
-Install dependencies:
+For the **core** modules: 
 
 ```bash
-pip install -r requirements.txt
+python -m dc_workload_pipeline.workload_simulation
+```
 
+For **applications**:
+
+```bash
+python -m dc_workload_pipeline.applications.app_timeshift
+```
