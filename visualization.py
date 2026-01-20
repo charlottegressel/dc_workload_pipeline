@@ -7,12 +7,12 @@ stochastic noise analysis, and hourly error distributions.
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from config import (
+from dc_workload_pipeline.config import (
     AMP1, AMP2, MU1, MU2, SIGMA1, SIGMA2, 
     BASELINE_FLOOR, BASELINE_CAP, INF_SHARE, 
     IT_CAPACITY, COOLING_COP, CITY, OUTPUT_DIR
 )
-from workload_simulation import run_simulation
+from dc_workload_pipeline.workload_simulation import run_simulation
 
 # --- 1. Data Acquisition ---
 data, summary_df = run_simulation(
@@ -20,7 +20,6 @@ data, summary_df = run_simulation(
     BASELINE_FLOOR, BASELINE_CAP, INF_SHARE, 
     IT_CAPACITY, COOLING_COP, CITY, print_results=False
 )
-data, summary_df = run_simulation(city=CITY, print_results=False)
 
 # Constants for slicing (Days 5 to 12 for diurnal clarity)
 START_SLICE, END_SLICE = 96*5, 96*12
@@ -29,24 +28,24 @@ t_window = data["t_hours"][:(END_SLICE - START_SLICE)]
 def plot_power_breakdown(data):
     """Main dashboard showing power tiers and cooling components."""
     fig, axes = plt.subplots(3, 1, figsize=(10, 10), sharex=True)
-    t = data["t_hours"]
+    t = data["t_hours"][START_SLICE:END_SLICE]
 
     # Subplot 0: Overview
-    axes[0].plot(t, data["inf_power"], label='Inference', color="crimson", lw=0.8, drawstyle='steps-post')
-    axes[0].plot(t, data["tr_power"], label='Training', color="deepskyblue", lw=0.8, drawstyle='steps-post')
-    axes[0].plot(t, data["cool_power"], label='Cooling', color="purple", lw=0.8, drawstyle='steps-post')
-    axes[0].plot(t, data["total_power"], label='Total Load', color="black", lw=1.5, drawstyle='steps-post')
-    axes[0].set_title("Total Data Center Power Profile", fontweight='bold')
+    axes[0].plot(t, data["inf_power"][START_SLICE:END_SLICE], label='Inference', color="crimson", lw=0.8, drawstyle='steps-post')
+    axes[0].plot(t, data["tr_power"][START_SLICE:END_SLICE], label='Training', color="deepskyblue", lw=0.8, drawstyle='steps-post')
+    axes[0].plot(t, data["cool_power"][START_SLICE:END_SLICE], label='Cooling', color="purple", lw=0.8, drawstyle='steps-post')
+    axes[0].plot(t, data["total_power"][START_SLICE:END_SLICE], label='Total Load', color="black", lw=1.5, drawstyle='steps-post')
+    axes[0].set_title("Total Data Center Power Profile (7-Day Sample)", fontweight='bold')
 
     # Subplot 1: IT Workload vs Baselines
-    axes[1].plot(t, data["inf_power"], color="crimson", alpha=0.6, lw=0.8, drawstyle='steps-post')
-    axes[1].plot(t, data["inf_baseline"], label='Inf. Baseline', color="darkred", ls=':', lw=1.2)
-    axes[1].plot(t, data["tr_power"], color="deepskyblue", alpha=0.6, lw=0.8, drawstyle='steps-post')
-    axes[1].plot(t, data["tr_baseline"], label='Tr. Baseline', color="darkblue", ls=':', lw=1.2)
+    axes[1].plot(t, data["inf_power"][START_SLICE:END_SLICE], color="crimson", alpha=0.6, lw=0.8, drawstyle='steps-post')
+    axes[1].plot(t, data["inf_baseline"][START_SLICE:END_SLICE], label='Inf. Baseline', color="darkred", ls=':', lw=1.2)
+    axes[1].plot(t, data["tr_power"][START_SLICE:END_SLICE], color="deepskyblue", alpha=0.6, lw=0.8, drawstyle='steps-post')
+    axes[1].plot(t, data["tr_baseline"][START_SLICE:END_SLICE], label='Tr. Baseline', color="darkblue", ls=':', lw=1.2)
     axes[1].set_title("Workload Fluctuations vs. Scheduled Baselines", fontweight='bold')
 
     # Subplot 2: Cooling Breakdown (Stacked Area)
-    it, liq, free = data["it_power"], data["liq_cooling"], data["free_cooling"]
+    it, liq, free = data["it_power"][START_SLICE:END_SLICE], data["liq_cooling"][START_SLICE:END_SLICE], data["free_cooling"][START_SLICE:END_SLICE]
     axes[2].plot(t, it, color='black', lw=1, label='IT Load')
     axes[2].fill_between(t, it, it + liq, color='blue', alpha=0.3, label='Liquid Cooling', step='post')
     axes[2].fill_between(t, it + liq, it + liq + free, color='cyan', alpha=0.3, label='Air/Free Cooling', step='post')

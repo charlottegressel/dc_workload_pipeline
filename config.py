@@ -58,7 +58,6 @@ COOLING_U_NEG = 25             # Negative thermal loss coefficient
 
 # --- Dataset File Mapping ---
 BIOHPC_FILE = DATA_DIR / "cbsugpu08_usage_stats.txt"
-SOLARDATA_FILE = DATA_DIR / "nsrdb_solardata_nyc_2024.csv"
 
 # --- Initialization ---
 # Ensure necessary directories exist to prevent FileNotFoundError
