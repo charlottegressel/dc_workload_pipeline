@@ -59,24 +59,5 @@ In the `app_coppue.py` application, the following datasets are used:
 - `nsrdb_saltlakecity_2024.csv`
 - `nsrdb_seattle_2024.csv`
 
----
-
-### Other Usage
-
-These datasets can also be used for:
-
-- Simulation of data center workloads under varying temperature conditions  
-- Energy modeling and optimization  
-- Climate analysis and research  
-
-#### Example (Python)
-
-```python
-import pandas as pd
-
-# Load Chicago dataset
-df = pd.read_csv("nsrdb_chicago_2024.csv")
-print(df.head())
-
 
 
