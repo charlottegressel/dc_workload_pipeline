@@ -22,7 +22,7 @@ DAYS_PER_YEAR = 365  # Standard year logic (Leap day excluded)
 TOTAL_STEPS = DAYS_PER_YEAR * HOURS_PER_DAY * INTERVALS_PER_HOUR
 
 START_DATE = "2025-01-01 00:00:00"
-END_DATE = "2025-12-31 23:45:00"
+END_DATE = "2025-12-31 23:45:00" #2025 has no leap day
 
 # --- Workload Profile (Diurnal Sinusoidal Baselines) ---
 # Parameters for peak amplitudes and mean-reversion timings
